@@ -5,31 +5,38 @@ using UnityEngine;
 
 public class takeFlight : MonoBehaviour
 {
+    AudioSource audiosource;
 
-    public Rigidbody rB;
-    rB = GetComponent<Rigidbody>();
-    float moveRight = 500f;
+    public Rigidbody rigidBody;
+   
+    float speed = 100f;
+
+    void Start()
+    {
+        rigidBody = GetComponent<Rigidbody>();
+        audiosource = GetComponent<AudioSource>();
+    }
     // Update is called once per frame
     void Update()
     {
         processInput();
     }
 
-    private void processInput()
+    private  void processInput()
     {
 
         if ((Input.GetKey("a")))
         {
-            Debug.Log("Nigga moving left");
+            transform.Rotate(Vector3.forward * speed * Time.deltaTime);
         }
         else if ((Input.GetKey("d")))
         {
-            rB.AddForce(moveRight * 0 * 0 * Time.deltaTime);
+            transform.Rotate(-Vector3.forward * speed * Time.deltaTime);
         }
 
         else if (Input.GetKey("space"))
         {
-
+            rigidBody.AddRelativeForce(Vector3.up * speed * Time.deltaTime);
         }
         else
         {
